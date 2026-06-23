@@ -152,10 +152,10 @@ export function DataTable<TData, TValue>({
       accessToken: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
     });
   };
-  const handleUpdateProduct =()=>{
-    console.log("tk",process.env.NEXT_PUBLIC_ACCESS_TOKEN)
-    updateProduct()
-  }
+  // const handleUpdateProduct =()=>{
+  //   console.log("tk",process.env.NEXT_PUBLIC_ACCESS_TOKEN)
+  //   updateProduct()
+  // }
 
   return (
     <>
