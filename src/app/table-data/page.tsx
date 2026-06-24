@@ -20,7 +20,7 @@ export default function DataTablePage() {
   const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
 
   const updateProduct = {
-    name: "nguy dek update",
+    name: "ng men rtk",
     description:
       "The latest iPhone featuring the A18 Pro chip, titanium design, and advanced camera system.",
 
@@ -49,7 +49,7 @@ export default function DataTablePage() {
     ],
 
     thumbnail:
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800",
+      "https://i.pinimg.com/736x/d4/30/80/d43080ee7ffcd34e8208c2fc6447b180.jpg",
 
     warranty: "1 Year Official Warranty",
 

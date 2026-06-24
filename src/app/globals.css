@@ -133,3 +133,10 @@ body {
     @apply font-sans;
   }
 }
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
