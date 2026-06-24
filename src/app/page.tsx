@@ -1,4 +1,5 @@
 import FormExample from "@/components/example-form/FormExample";
+import CreateProductForm from "@/components/example-form/ProductForm";
 import RegisterForm from "@/components/example-form/RegisterForm";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import GetCountComponent from "@/components/ui/GetCountComponent";
@@ -18,6 +19,7 @@ export default function Home() {
       <GetCountComponent /> */}{" "}
       <RegisterForm></RegisterForm>
       <FormExample></FormExample>
+      <CreateProductForm></CreateProductForm>
     </div>
   );
   //  <Card className="max-w-sm">

@@ -138,7 +138,7 @@ export default function FormExampleComponent() {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg space-y-6"
+        className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm space-y-6"
       >
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
 
