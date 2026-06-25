@@ -65,18 +65,13 @@ export default function ProductForm() {
   });
 
   const onSubmit = async (data: ProductFormData) => {
-    try {
-      const res = await createProduct({
-        newProduct: data,
-        accessToken: "YOUR_TOKEN_HERE",
-      }).unwrap();
+    console.log("SUBMIT DATA:", data);
 
-      console.log("PRODUCT CREATED:", res);
-      toast.success("Product created successfully 🚀");
-      reset();
-    } catch (err: any) {
-      console.log(err);
-      toast.error(err?.data?.message || "Failed to create product");
+    try {
+      const res = await createProduct(data).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -101,31 +96,99 @@ export default function ProductForm() {
       <h2 className="font-semibold">Computer Spec</h2>
 
       <div className="grid grid-cols-2 gap-2">
-        <input {...register("computerSpec.processor")} placeholder="CPU" className="input" />
-        <input {...register("computerSpec.ram")} placeholder="RAM" className="input" />
-        <input {...register("computerSpec.storage")} placeholder="Storage" className="input" />
-        <input {...register("computerSpec.gpu")} placeholder="GPU" className="input" />
-        <input {...register("computerSpec.os")} placeholder="OS" className="input" />
-        <input {...register("computerSpec.screenSize")} placeholder="Screen" className="input" />
-        <input {...register("computerSpec.battery")} placeholder="Battery" className="input" />
+        <input
+          {...register("computerSpec.processor")}
+          placeholder="CPU"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.ram")}
+          placeholder="RAM"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.storage")}
+          placeholder="Storage"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.gpu")}
+          placeholder="GPU"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.os")}
+          placeholder="OS"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.screenSize")}
+          placeholder="Screen"
+          className="input"
+        />
+        <input
+          {...register("computerSpec.battery")}
+          placeholder="Battery"
+          className="input"
+        />
       </div>
 
       {/* NUMBERS */}
       <div className="grid grid-cols-2 gap-2">
-        <input type="number" {...register("stockQuantity", { valueAsNumber: true })} placeholder="Stock" className="input" />
-        <input type="number" {...register("priceIn", { valueAsNumber: true })} placeholder="Price In" className="input" />
-        <input type="number" {...register("priceOut", { valueAsNumber: true })} placeholder="Price Out" className="input" />
-        <input type="number" {...register("discount", { valueAsNumber: true })} placeholder="Discount" className="input" />
+        <input
+          type="number"
+          {...register("stockQuantity", { valueAsNumber: true })}
+          placeholder="Stock"
+          className="input"
+        />
+        <input
+          type="number"
+          {...register("priceIn", { valueAsNumber: true })}
+          placeholder="Price In"
+          className="input"
+        />
+        <input
+          type="number"
+          {...register("priceOut", { valueAsNumber: true })}
+          placeholder="Price Out"
+          className="input"
+        />
+        <input
+          type="number"
+          {...register("discount", { valueAsNumber: true })}
+          placeholder="Discount"
+          className="input"
+        />
       </div>
 
       {/* THUMBNAIL */}
-      <input {...register("thumbnail")} placeholder="Thumbnail URL" className="input" />
-      <input {...register("warranty")} placeholder="Warranty" className="input" />
+      <input
+        {...register("thumbnail")}
+        placeholder="Thumbnail URL"
+        className="input"
+      />
+      <input
+        {...register("warranty")}
+        placeholder="Warranty"
+        className="input"
+      />
 
       {/* IDS */}
-      <input {...register("categoryUuid")} placeholder="Category UUID" className="input" />
-      <input {...register("supplierUuid")} placeholder="Supplier UUID" className="input" />
-      <input {...register("brandUuid")} placeholder="Brand UUID" className="input" />
+      <input
+        {...register("categoryUuid")}
+        placeholder="Category UUID"
+        className="input"
+      />
+      <input
+        {...register("supplierUuid")}
+        placeholder="Supplier UUID"
+        className="input"
+      />
+      <input
+        {...register("brandUuid")}
+        placeholder="Brand UUID"
+        className="input"
+      />
 
       {/* COLORS */}
       <div>
