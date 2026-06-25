@@ -9,29 +9,39 @@ export default function VerifyEmailPage() {
   const [code, setCode] = useState("");
 
   const verifyEmail = async () => {
+    if (!email) {
+      toast.error("Missing email in URL");
+      return;
+    }
+
+    if (!code) {
+      toast.error("Please enter verification code");
+      return;
+    }
+
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ISHOP_BASE_URL}/auth/verify-email`,
+        `${process.env.NEXT_PUBLIC_ISHOP_BASE_URL}/users/verify-email?token=${code}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email,
-            code,
-          }),
         },
       );
+
+      const data = await res.json().catch(() => null);
+
+      console.log("VERIFY RESPONSE:", data);
 
       if (!res.ok) throw new Error("Verification failed");
 
       toast.success("Email verified 🎉 You can now login");
     } catch (err) {
+      console.log(err);
       toast.error("Invalid verification code ❌");
     }
   };
-
   return (
     <div className="p-4 max-w-md mx-auto">
       <h1 className="text-xl font-bold">Verify Email</h1>
