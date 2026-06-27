@@ -16,6 +16,7 @@ export default function ProductForm() {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -169,7 +170,18 @@ export default function ProductForm() {
         placeholder="Thumbnail URL"
         className="input"
       /> */}
-      <FileUploadFillProgressDemo/>
+      <FileUploadFillProgressDemo
+        onUploaded={(url) => {
+          setValue("thumbnail", url, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+        }}
+      />
+
+      {errors.thumbnail && (
+        <p className="text-red-500">{errors.thumbnail.message}</p>
+      )}
       <input
         {...register("warranty")}
         placeholder="Warranty"

@@ -15,17 +15,17 @@ import {
   FileUploadList,
   FileUploadTrigger,
 } from "@/components/ui/file-upload";
-
+import { useUpdateProductMutation } from "@/services/ecommerce";
 import { useUploadFilesMutation } from "@/services/uploadApi";
-
 type FileUploadFillProgressDemoProps = {
   onUploaded?: (url: string) => void;
 };
-
 export function FileUploadFillProgressDemo({
   onUploaded,
 }: FileUploadFillProgressDemoProps) {
+  // uploadfile hook
   const [uploadMutiFiles] = useUploadFilesMutation();
+
   const [files, setFiles] = React.useState<File[]>([]);
 
   const onUpload = React.useCallback(
@@ -42,38 +42,33 @@ export function FileUploadFillProgressDemo({
       },
     ) => {
       try {
+        // Process each file individually
+
         const uploadPromises = files.map(async (file) => {
           try {
-            const response = await uploadMutiFiles(file).unwrap();
+            // Simulate file upload with progress
+            await uploadMutiFiles(file);
 
-            console.log("UPLOAD RESPONSE:", response);
-
-            const imageUrl = response?.[0]?.uri;
-
-            console.log("IMAGE URL:", imageUrl);
-
-            if (imageUrl) {
-              onUploaded?.(imageUrl);
-            }
-
-            // fake progress UI
+            // onUploaded?.(response.[0]?.uri ?? "");
             const totalChunks = 10;
             let uploadedChunks = 0;
 
+            // Simulate chunk upload with delays
             for (let i = 0; i < totalChunks; i++) {
-              await new Promise((r) =>
-                setTimeout(r, Math.random() * 200 + 100),
+              // Simulate network delay (100-300ms per chunk)
+              await new Promise((resolve) =>
+                setTimeout(resolve, Math.random() * 200 + 100),
               );
 
+              // Update progress for this specific file
               uploadedChunks++;
               const progress = (uploadedChunks / totalChunks) * 100;
               onProgress(file, progress);
             }
 
-            await new Promise((r) => setTimeout(r, 500));
+            // Simulate server processing delay
+            await new Promise((resolve) => setTimeout(resolve, 500));
             onSuccess(file);
-
-            return response;
           } catch (error) {
             onError(
               file,
@@ -82,18 +77,20 @@ export function FileUploadFillProgressDemo({
           }
         });
 
-        const result = await Promise.all(uploadPromises);
-        console.log("ALL UPLOADS:", result);
+        // Wait for all uploads to complete
+        const multiFiles = await Promise.all(uploadPromises);
+        console.log(multiFiles);
       } catch (error) {
-        console.error("Unexpected error:", error);
+        // This handles any error that might occur outside the individual upload processes
+        console.error("Unexpected error during upload:", error);
       }
     },
-    [uploadMutiFiles, onUploaded],
+    [],
   );
 
   const onFileReject = React.useCallback((file: File, message: string) => {
     toast(message, {
-      description: `"${file.name}" rejected`,
+      description: `"${file.name.length > 20 ? `${file.name.slice(0, 20)}...` : file.name}" has been rejected`,
     });
   }, []);
 
@@ -113,28 +110,25 @@ export function FileUploadFillProgressDemo({
           <div className="flex items-center justify-center rounded-full border p-2.5">
             <Upload className="size-6 text-muted-foreground" />
           </div>
-          <p className="text-sm font-medium">Drag & drop files here</p>
-          <p className="text-xs text-muted-foreground">
-            Or click to browse (max 10 files, 5MB each)
+          <p className="font-medium text-sm">Drag & drop files here</p>
+          <p className="text-muted-foreground text-xs">
+            Or click to browse (max 10 files, up to 5MB each)
           </p>
         </div>
-
         <FileUploadTrigger asChild>
           <Button variant="outline" size="sm" className="mt-2 w-fit">
             Browse files
           </Button>
         </FileUploadTrigger>
       </FileUploadDropzone>
-
       <FileUploadList orientation="horizontal">
         {files.map((file, index) => (
-          <FileUploadItem key={index} value={file}>
+          <FileUploadItem key={index} value={file} className="p-0">
             <FileUploadItemPreview className="size-20">
               <FileUploadItemProgress variant="fill" />
             </FileUploadItemPreview>
 
             <FileUploadItemMetadata className="sr-only" />
-
             <FileUploadItemDelete asChild>
               <Button
                 variant="secondary"

@@ -25,8 +25,8 @@ export const productSchema = z.object({
       images: z.array(z.string().url()),
     }),
   ),
-
-  thumbnail: z.string().url(),
+ thumbnail: z.string().url(),
+ 
 
   warranty: z.string(),
 
