@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useCreateProductMutation } from "@/services/ecommerce";
 import { productSchema, ProductFormData } from "@/lib/productSchema";
+import { Upload } from "lucide-react";
+import { FileUploadFillProgressDemo } from "./UploadFile";
 
 export default function ProductForm() {
   const [createProduct, { isLoading }] = useCreateProductMutation();
@@ -162,11 +164,12 @@ export default function ProductForm() {
       </div>
 
       {/* THUMBNAIL */}
-      <input
+      {/* <input
         {...register("thumbnail")}
         placeholder="Thumbnail URL"
         className="input"
-      />
+      /> */}
+      <FileUploadFillProgressDemo/>
       <input
         {...register("warranty")}
         placeholder="Warranty"

@@ -92,7 +92,6 @@ export const ecommerceApi = createApi({
 
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_ISHOP_BASE_URL,
-
     prepareHeaders: (headers) => {
       const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
